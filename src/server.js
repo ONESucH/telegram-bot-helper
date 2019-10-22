@@ -27,6 +27,7 @@ app.use('/', (req, res, next) => {
     .then(result => result.data)
     .catch(err => !err.response && console.log('Use next proxy'));
 
+  console.log('req.body', req.body);
   body.then(data => {
     res.send(data || 'Hello Telegram');
     next();
