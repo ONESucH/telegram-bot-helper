@@ -37,11 +37,11 @@ app.use('/', (req, res, next) => {
 app.listen(config.port, () => {
   console.log('===========================================================================');
   console.log('= For testing you need to create dedicated bot through BotFather');
-  console.log(`=    Bot name: ${config.botName}`);
+  console.log(`=    BotName: ${config.botName}`);
   console.log(`=    TelegramApiKey: ${config.token}`);
   console.log(`=    TelegramChatId: ${config.chatId}`);
   console.log(`=    TelegramForwardMessageId: ${config.message_id}`);
-  console.log(`=    Server listener on port: ${config.port}`);
+  console.log(`=    ServerListenerOnPort: ${config.port}`);
   console.log('= ');
   console.log('= These environment variables are only needed for running "node server.js"');
   console.log('===========================================================================');
