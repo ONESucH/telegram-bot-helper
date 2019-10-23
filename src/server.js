@@ -13,7 +13,7 @@ const api = new telegram({
 const urlConfig = {
   url: `https://api.telegram.org/bot${config.token}/getMe`,
   proxy: {
-    host: '104.143.244.64',
+    host: 'exp.proxy.digitalresistance.dog',
     port: 443
   }
 };
@@ -22,17 +22,17 @@ const urlConfig = {
   console.log('res', res);
 });*/
 
-app.use('/', (req, res, next) => {
-  const body = axios.request(urlConfig)
-    .then(result => result.data)
-    .catch(err => !err.response && console.log('Use next proxy'));
-
-  console.log('req.body', req.body);
-  body.then(data => {
-    res.send(data || 'Hello Telegram');
-    next();
-  });
-});
+app.use('/', (req, res, next) => axios.request(urlConfig)
+  .then(html => {
+    if (res.status === 200) {
+      console.log('============================================');
+      console.log(`=== Server connected success ${res.status}`);
+      console.log('============================================\n');
+    }
+    res.send(html.data || 'Hello Telegram');
+    res.end();
+  })
+  .catch(err => !err.response && console.log('Proxy connected!')));
 
 app.listen(config.port, () => {
   console.log('===========================================================================');
@@ -42,6 +42,9 @@ app.listen(config.port, () => {
   console.log(`=    TelegramChatId: ${config.chatId}`);
   console.log(`=    TelegramForwardMessageId: ${config.message_id}`);
   console.log(`=    ServerListenerOnPort: ${config.port}`);
+  console.log(`=    ServerUrl: ${urlConfig.url}`);
+  console.log(`=    ProxyHost: ${urlConfig.proxy.host}`);
+  console.log(`=    ProxyPort: ${urlConfig.proxy.port}`);
   console.log('= ');
   console.log('= These environment variables are only needed for running "node server.js"');
   console.log('===========================================================================');
