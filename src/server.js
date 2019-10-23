@@ -45,17 +45,17 @@ if (activeProxy) urlConfig.proxy = activeProxy[0];
 
 app.use('/', (req, res, next) => {
   axios.request(urlConfig)
-    .then(html => {
+    .then(({data, body}) => {
       if (res.status === 200) {
         console.log('============================================');
         console.log(`=== Server connected success ${res.status}`);
         console.log('============================================\n');
       }
-      console.log('html.body', html.body);
-      res.send(html.data || 'Hello Telegram');
+      console.log('body', body);
+      res.send(data || 'Hello Telegram');
       res.end();
     })
-    .catch(err => console.log('err', err))
+    .catch(err => err)
 });
 
 app.listen(config.port, () => {
