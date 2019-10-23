@@ -41,7 +41,9 @@ const activeProxy = proxyList.filter(item => {
   return axios.request(urlConfig).then(({data}) => data);
 });
 
-if (activeProxy) urlConfig.proxy = activeProxy[0];
+if (activeProxy) {
+  urlConfig.proxy = activeProxy[0]
+} else urlConfig.proxy = proxyList[0];
 
 app.use('/', (req, res, next) => {
   axios.request(urlConfig)
